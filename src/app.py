@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request
-from flask.wrappers import Request
 from config import config  # Fichero config
 from flask_mysqldb import MySQL
 
