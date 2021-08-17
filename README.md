@@ -44,5 +44,19 @@ Linter → An extension for VSCode that provides linting for multiple languages 
 
 ```
 
+## Cors
+
+```
+flask cors
+
+pip install -U flask-cors
+
+from flask_cors import CORS
+
+app=Flask(__name__)
+cors = CORS(app, resources={r"/*":{"origins":"*"}})
+
+```
+
 
 
