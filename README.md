@@ -50,6 +50,9 @@ Linter → An extension for VSCode that provides linting for multiple languages 
 flask cors
 
 pip install -U flask-cors
+pip install flask-cors
+
+-U = Upgrade
 
 from flask_cors import CORS
 

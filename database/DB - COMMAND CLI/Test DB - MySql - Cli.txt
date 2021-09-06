@@ -1,0 +1,222 @@
+-h → host
+-u → user
+-p → password
+
+mysql -h nombre_servidor -u nombre_usuario -p
+mysql -h localhost -u root -p
+
+use mibasedatos;
+show databases;
+create database miprueba;
+
+show tables;
+
+Informacion de una tabla:
+describe administrador;
+
+create table prueba (id_prueba int);
+Query OK, 0 rows affected (0.08 sec) 
+
+insert into prueba (id_prueba) values (1);
+
+
+Para salir de la línea de comandos de MySQL
+
+quit
+
+
+https://dev.mysql.com/doc/refman/8.0/en/example-auto-increment.html
+
+-----------------------------------------
+CREATE TABLE animals (
+     id MEDIUMINT NOT NULL AUTO_INCREMENT,
+     name CHAR(30) NOT NULL,
+     PRIMARY KEY (id)
+);
+
+INSERT INTO animals (name) VALUES
+    ('dog'),('cat'),('penguin'),
+    ('lax'),('whale'),('ostrich');
+
+SELECT * FROM animals;
+
+
+INSERT INTO animals (id,name) VALUES(0,'groundhog');
+INSERT INTO animals (id,name) VALUES(NULL,'squirrel');
+
+INSERT INTO animals (id,name) VALUES(100,'rabbit');
+INSERT INTO animals (id,name) VALUES(NULL,'mouse');
+
+
+--------------------------
+
+create table persona (
+    -> id int not null auto_increment,
+    -> name varchar(50) not null,
+    -> primary key(id));
+
+
+create table inscripcion (
+    -> id int not null auto_increment primary key,
+    -> taller varchar(200) not null,
+    -> persona_id int not null,
+    -> constraint foreign key(persona_id) references persona(id));
+
+create table Cargo(
+    -> id int(5) not null auto_increment,
+    -> name varchar(100) not null,
+    -> fecha date,
+    -> constraint PK_Cargo primary key clustered(id));
+
+
+-----------------------------------
+https://www.mysqltutorial.org/mysql-foreign-key/
+-----------------------------------
+
+CREATE TABLE categories(
+    categoryId INT AUTO_INCREMENT PRIMARY KEY,
+    categoryName VARCHAR(100) NOT NULL
+) ENGINE=INNODB;
+
+CREATE TABLE products(
+    productId INT AUTO_INCREMENT PRIMARY KEY,
+    productName varchar(100) not null,
+    categoryId INT,
+    CONSTRAINT fk_category
+    FOREIGN KEY (categoryId) 
+        REFERENCES categories(categoryId)
+) ENGINE=INNODB;
+
+
+
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS products;
+
+
+CASCADE action
+
+CREATE TABLE products(
+    productId INT AUTO_INCREMENT PRIMARY KEY,
+    productName varchar(100) not null,
+    categoryId INT NOT NULL,
+    CONSTRAINT fk_category
+    FOREIGN KEY (categoryId) 
+    REFERENCES categories(categoryId)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=INNODB;
+
+
+SET NULL action
+
+
+CREATE TABLE categories(
+    categoryId INT AUTO_INCREMENT PRIMARY KEY,
+    categoryName VARCHAR(100) NOT NULL
+)ENGINE=INNODB;
+
+CREATE TABLE products(
+    productId INT AUTO_INCREMENT PRIMARY KEY,
+    productName varchar(100) not null,
+    categoryId INT,
+    CONSTRAINT fk_category
+    FOREIGN KEY (categoryId) 
+        REFERENCES categories(categoryId)
+        ON UPDATE SET NULL
+        ON DELETE SET NULL 
+)ENGINE=INNODB;
+
+
+Drop MySQL foreign key constraints
+
+ALTER TABLE table_name 
+DROP FOREIGN KEY constraint_name;
+
+SHOW CREATE TABLE table_name;
+show create table inscripcion;
+
+
+-----------------------------------------
+CREATE TABLE employees (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    branch_id BIGINT UNSIGNED,
+    dni VARCHAR(20) UNIQUE,
+    name VARCHAR(150),
+    email VARCHAR(100),
+    birth_date DATE,
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL  
+);
+
+
+DROP TABLE employees;
+
+
+
+UPDATE consumibles SET stock = 9
+    -> WHERE referencia = 'WG40';
+
+
+-------------------------------------
+DROP TABLE: Eliminar una tabla de una base de datos MySQL
+
+DROP TABLE nombre_tabla
+DROP TABLE IF EXISTS nombre_tabla
+
+TRUNCATE TABLE: Vaciar una tabla en MySQL
+
+TRUNCATE TABLE nombre_tabla;
+
+RENAME TABLE: Renombrar una tabla en MySQL
+
+ALTER TABLE nombre_tabla RENAME nombre_nuevo_tabla;
+RENAME TABLE usuarios TO usuarios_nueva;
+RENAME TABLE usuarios TO usuarios_nueva, tarifas TO precios;
+
+- Agregar columnas a una tabla MySQL
+
+ALTER TABLE cliente ADD apellido_cliente VARCHAR(30);
+
+- Eliminar columnas a una tabla
+
+ALTER TABLE clientes DROP apellido_cliente;
+
+- Modificar columnas a una tabla
+
+ALTER TABLE clientes MODIFY nombre_cliente VARCHAR(40);
+
+- Modificar el nombre de una columna
+
+ALTER TABLE clientes CHANGE nombre_cliente nombre;
+
+alter table cargo CHANGE fecha fechaIngreso date;
+alter table cargo change fechaIngreso fechaRegistro date;
+
+ALTER TABLE tableName CHANGE oldcolname newcolname datatype(length);
+
+ALTER TABLE nombretabla 
+CHANGE nombrecolumnaactual nuevonombrecolumna tipodedato
+
+- Añadir una nueva columna después de otra:
+
+ALTER TABLE nombre_tabla ADD nombre_columna VARCHAR(5) AFTER nombre_columna_anterior;
+
+- Solamente cambiar el tipo de dato de una columna:
+
+ALTER TABLE nombre_tabla MODIFY nombre_columna DATE NOT NULL;
+
+-
+
+alter table cargo add descripcion varchar(200) not null;
+alter table cargo add persona_id int not null;
+alter table cargo add constraint FK_Cargo_Persona foreign key(persona_id) references persona(id);
+
+
+
+
+
+
+
+
+
+

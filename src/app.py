@@ -1,12 +1,18 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from config import config  # Fichero config
 from flask_mysqldb import MySQL
 
 # __name__ Este parámetro sirve para saber si estamos ejecutando este archivo como principal
 app = Flask(__name__)
 
+CORS(app, resources={r"/*":{"origins":"*"}})
+
 conn = MySQL(app)
 
+@app.route('/')
+def get_start():
+    return 'Running Server...'
 
 # GET ALL DATA
 @app.route('/courses', methods=['GET'])
@@ -49,7 +55,7 @@ def get_course(id):
 @app.route('/course', methods=['POST'])
 def post_course():
     try:
-        # print(request.json)
+        print(request.json)
         cursor = conn.connection.cursor()
         sql = """INSERT INTO cursos (name, credit)
         VALUES('{0}', {1})""".format(request.json['name'], request.json['credit'])
